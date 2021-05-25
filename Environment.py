@@ -90,7 +90,6 @@ if __name__ == '__main__':
 	action_mod = 2
 
 	curr_loc, target_loc = env.give_start_dest()
-	# curr_loc = target_loc-[0.2, 0]
 	print(curr_loc, target_loc)
 	print(env.step(action_user, action_mod, target_loc, curr_loc))
 
