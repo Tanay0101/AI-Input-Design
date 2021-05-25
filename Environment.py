@@ -1,9 +1,6 @@
 import numpy as np
 from collections import deque
 
-# np.random.seed(0)
-
-
 class Replay_Buffer:
 	def __init__(self, len_buffer):
 		self.states = deque([], maxlen=len_buffer)
