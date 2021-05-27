@@ -3,14 +3,14 @@ from collections import deque
 
 
 class Replay_Buffer:
-	def __init__(self, len_buffer):
-		self.action_history = deque(maxlen=self.replay_buffer_size)
-		self.state_history = deque(maxlen=self.replay_buffer_size)
-		self.next_state_history = deque(maxlen=self.replay_buffer_size)
-		self.rewards_history = deque(maxlen=self.replay_buffer_size)
-		self.done_history = deque(maxlen=self.replay_buffer_size)
+	def __init__(self, replay_buffer_size):
+		self.action_history = deque(maxlen=replay_buffer_size)
+		self.state_history = deque(maxlen=replay_buffer_size)
+		self.next_state_history = deque(maxlen=replay_buffer_size)
+		self.rewards_history = deque(maxlen=replay_buffer_size)
+		self.done_history = deque(maxlen=replay_buffer_size)
 
-	def append(self, state, reward, next_state, done):
+	def append(self, state, action, reward, next_state, done):
 		self.state_history.append(state)
 		self.action_history.append(action)
 		self.next_state_history.append(next_state)
