@@ -66,7 +66,13 @@ class Environment:
 
 		action_user = np.array(action_user)
 		new_loc = curr_loc + action_user*action_mod/10
-		reward = -0.2 - np.sum(np.abs(target_loc - new_loc))
+
+		new_loc[0] = min(new_loc[0], 1)
+		new_loc[0] = max(new_loc[0], -1)
+		new_loc[1] = min(new_loc[1], 1)
+		new_loc[1] = max(new_loc[1], -1)
+
+		reward = -np.sum(np.abs(target_loc - new_loc))
 
 		if np.equal(new_loc, target_loc).all():
 			done = 1
@@ -84,7 +90,7 @@ def make_one_hot(index, size_array):
 if __name__ == '__main__':
 	env = Environment()
 	action_user = 1
-	action_mod = 2
+	action_mod = 1
 
 	curr_loc, target_loc = env.give_start_dest()
 	print(curr_loc, target_loc)
