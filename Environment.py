@@ -72,7 +72,10 @@ class Environment:
 		new_loc[1] = min(new_loc[1], 1)
 		new_loc[1] = max(new_loc[1], -1)
 
-		reward = -np.sum(np.abs(target_loc - new_loc))
+		if np.sum(np.abs(target_loc - new_loc))>=np.sum(np.abs(target_loc - curr_loc)):
+			reward = -1
+		else:
+			reward = 1
 
 		if np.equal(new_loc, target_loc).all():
 			done = 1
