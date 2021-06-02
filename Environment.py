@@ -17,6 +17,13 @@ class Replay_Buffer:
 		self.rewards_history.append(reward)
 		self.done_history.append(done)
 
+	def print(self):
+		print(self.state_history)
+		print(self.action_history)
+		print(self.rewards_history)
+		print(self.next_state_history)
+		print(self.done_history)
+
 
 class Environment:
 	def __init__(self, loc_icons=None, num_icons=None, usage_prob=None):
@@ -68,9 +75,9 @@ class Environment:
 		new_loc = curr_loc + action_user*action_mod/10
 
 		new_loc[0] = min(new_loc[0], 1)
-		new_loc[0] = max(new_loc[0], -1)
+		new_loc[0] = max(new_loc[0], 0)
 		new_loc[1] = min(new_loc[1], 1)
-		new_loc[1] = max(new_loc[1], -1)
+		new_loc[1] = max(new_loc[1], 0)
 
 		if np.sum(np.abs(target_loc - new_loc))>=np.sum(np.abs(target_loc - curr_loc)):
 			reward = -1
