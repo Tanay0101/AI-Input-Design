@@ -84,7 +84,7 @@ class Environment:
 		else:
 			reward = 1
 
-		if np.equal(new_loc, target_loc).all():
+		if np.allclose(new_loc, target_loc):
 			done = 1
 			reward += 10
 		else:
