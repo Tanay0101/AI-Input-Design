@@ -96,6 +96,7 @@ def make_one_hot(index, size_array):
 	array = [0]*size_array
 	array[index] = 1
 	return array
+
 	
 if __name__ == '__main__':
 	env = Environment()
