@@ -72,7 +72,7 @@ class Environment:
 			action_user = [0, 1]
 
 		action_user = np.array(action_user)
-		new_loc = curr_loc*10 + action_user*action_mod
+		new_loc = curr_loc*10 + action_user
 		new_loc = new_loc/10
 		new_loc = new_loc.round(1)
 
@@ -86,6 +86,16 @@ class Environment:
 		else:
 			reward_user = 1
 
+		action_user = np.array(action_user)
+		new_loc = curr_loc*10 + action_user*action_mod
+		new_loc = new_loc/10
+		new_loc = new_loc.round(1)
+
+		new_loc[0] = min(new_loc[0], 1)
+		new_loc[0] = max(new_loc[0], 0)
+		new_loc[1] = min(new_loc[1], 1)
+		new_loc[1] = max(new_loc[1], 0)
+			
 		reward_mod = -0.2 - np.sum(np.abs(target_loc - new_loc))
 
 		if np.allclose(new_loc, target_loc):
