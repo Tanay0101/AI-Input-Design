@@ -84,7 +84,7 @@ class Environment:
 		if np.sum(np.abs(target_loc - new_loc))>=np.sum(np.abs(target_loc - curr_loc)):
 			reward_user = -1
 		else:
-			reward_user = 1
+			reward_user = 0.9
 
 		action_user = np.array(action_user)
 		new_loc = curr_loc*10 + action_user*action_mod
