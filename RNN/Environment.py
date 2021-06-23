@@ -60,7 +60,7 @@ class Environment:
 
 	def step(self, action_user, action_mod, target_loc, curr_loc):
 		'''Action of user : 0:left = [-1, 0], 1:right = [1,0], 2:up = [0,-1], 3:down = [0, 1]
-						Action of modulator = 1,2,3,4
+			Action of modulator = 1,2,3,4
 		'''
 		if action_user == 0:
 			action_user = [-1, 0]
