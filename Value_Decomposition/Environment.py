@@ -78,8 +78,8 @@ class Environment:
 
 		if np.allclose(new_loc, target_loc):
 			done = 1
-			reward_user = 10
-			reward_mod = 10 
+			reward_user = 40
+			reward_mod = 40 
 		else:
 			done = 0
 
