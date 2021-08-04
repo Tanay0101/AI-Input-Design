@@ -92,6 +92,12 @@ def make_one_hot(index, size_array):
 	array[index] = 1
 	return array
 
+def give_mapping(cell_locs):
+	mapping = np.zeros((11,11))
+	for cell in cell_locs:
+		mapping[int(cell[0]*10), int(cell[1]*10)] = 1
+
+	return mapping
 	
 if __name__ == '__main__':
 	env = Environment()
