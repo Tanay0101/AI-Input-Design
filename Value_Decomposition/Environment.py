@@ -13,6 +13,25 @@ class Replay_Buffer:
 		self.reward_assist_history = deque(maxlen=replay_buffer_size)
 		self.next_ob_assist_history = deque(maxlen = replay_buffer_size)
 		self.done_history = deque(maxlen=replay_buffer_size)
+		self.priorities = deque(maxlen = replay_buffer_size)
+		self.max_val = 1
+
+	def get_probabilities(self, priority_scale = 0.7):
+		scaled_priorites = np.array(self.priorities)**priority_scale
+		sample_probabilties = scaled_priorites/sum(scaled_priorites)
+		return sample_probabilties
+
+	def get_importance(self, probabilities):
+		importance = 1/len(self.done_history) * 1/probabilities
+		importance_normalized = importance/max(importance)
+		return importance_normalized
+
+	def set_priorities(self, indices, error, offset = 0.1):
+		for i, e in zip(indices, error):
+			self.priorities[i] = abs(e) + offset
+			self.max_val = max(self.max_val, self.priorities[i])	
+		return None
+
 
 
 class Environment:
