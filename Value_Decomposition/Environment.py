@@ -92,13 +92,13 @@ class Environment:
 		new_loc[1] = min(new_loc[1], 1)
 		new_loc[1] = max(new_loc[1], 0)
 			
-		reward_mod = -1
+		reward_mod = -2
 		reward_user = -1
 
 		if np.allclose(new_loc, target_loc):
 			done = 1
-			reward_user = 40
-			reward_mod = 40 
+			reward_user = 50
+			reward_mod = 50 
 		else:
 			done = 0
 
