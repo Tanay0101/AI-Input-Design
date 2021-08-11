@@ -60,7 +60,7 @@ class Environment:
 
 	def step(self, action_user, action_mod, target_loc, curr_loc):
 		'''Action of user : 0:left = [-1, 0], 1:right = [1,0], 2:up = [0,-1], 3:down = [0, 1]
-						Action of modulator = 1,2,3,4
+			Action of modulator = 1,2,3,4
 		'''
 		if action_user == 0:
 			action_user = [-1, 0]
@@ -70,18 +70,6 @@ class Environment:
 			action_user = [0, -1]
 		elif action_user == 3:
 			action_user = [0, 1]
-
-		action_user = np.array(action_user)
-		new_loc = curr_loc*10 + action_user
-		new_loc = new_loc/10
-		new_loc = new_loc.round(1)
-
-		new_loc[0] = min(new_loc[0], 1)
-		new_loc[0] = max(new_loc[0], 0)
-		new_loc[1] = min(new_loc[1], 1)
-		new_loc[1] = max(new_loc[1], 0)
-
-		reward_user = -1
 
 		action_user = np.array(action_user)
 		new_loc = curr_loc*10 + action_user*action_mod
@@ -94,11 +82,12 @@ class Environment:
 		new_loc[1] = max(new_loc[1], 0)
 			
 		reward_mod = -1
+		reward_user = -1
 
-		if np.allclose(new_loc, target_loc):
+		if np.allclose(new_loc, target_loc, ):
 			done = 1
-			reward_user = 10
-			reward_mod = 10
+			reward_user = 0
+			reward_mod = 0 
 		else:
 			done = 0
 
