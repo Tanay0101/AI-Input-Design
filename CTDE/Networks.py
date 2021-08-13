@@ -1,7 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.layers import Input, Dense, Subtract, LSTM, Concatenate
 
 class UserActor:
 	def __init__(self):
@@ -17,7 +17,7 @@ class UserActor:
 class AsstActor:
 	def __init__(self):
 		input_B = Input(shape = (4, 6)) #Input of assistant actor/ Output of user actor 
-		input_C = Input(shape = (11,11,3)) #Icon layout/ input of assistant actor
+		input_C = Input(shape = (11,11,1)) #Icon layout/ input of assistant actor
 		a = Dense(32, activation = 'relu')(input_B)
 		a = LSTM(32, activation = 'tanh')(a)
 
@@ -38,7 +38,7 @@ class CentralizedCritic:
 	def __init__(self):
 		input_A = Input(shape = 4) #Input of user actor
 		input_B = Input(shape = (4, 6)) #Input of assistant actor/ Output of user actor 
-		input_C = Input(shape = (11,11,3)) #Icon layout/ input of assistant actor
+		input_C = Input(shape = (11,11,1)) #Icon layout/ input of assistant actor
 		input_D = Input(shape = 4) #Output of assistant actor
 
 		x = Subtract()([input_A[:, 2:], input_A[:, :2]])
