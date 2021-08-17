@@ -15,8 +15,8 @@ class UserActor:
 		self.model.summary()
 
 class AsstActor:
-	def __init__(self):
-		input_B = Input(shape = (4, 6)) #Input of assistant actor/ Output of user actor 
+	def __init__(self, memory_len):
+		input_B = Input(shape = (memory_len, 6)) #Input of assistant actor/ Output of user actor 
 		input_C = Input(shape = (11,11,1)) #Icon layout/ input of assistant actor
 		a = Dense(32, activation = 'relu')(input_B)
 		a = LSTM(32, activation = 'tanh')(a)
@@ -35,16 +35,16 @@ class AsstActor:
 
 
 class CentralizedCritic:
-	def __init__(self):
+	def __init__(self, memory_len):
 		input_A = Input(shape = 4) #Input of user actor
-		input_B = Input(shape = (4, 6)) #Input of assistant actor/ Output of user actor 
+		input_B = Input(shape = (memory_len, 6)) #Input of assistant actor/ Output of user actor 
 		input_C = Input(shape = (11,11,1)) #Icon layout/ input of assistant actor
 		input_D = Input(shape = 4) #Output of assistant actor
 
 		x = Subtract()([input_A[:, 2:], input_A[:, :2]])
 		x = Dense(32, activation = 'relu')(x)
 		x = Dense(64, activation = 'relu')(x)
-		x = Dense(4, activation = 'softmax')(x)
+		x = Dense(32, activation = 'relu')(x)
 
 		y = Dense(32, activation = 'relu')(input_B)
 		y = LSTM(32, activation = 'tanh')(y)
