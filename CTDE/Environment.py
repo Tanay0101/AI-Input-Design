@@ -34,17 +34,17 @@ class Environment:
 		return start_loc, dest_loc
 
 	def step(self, action_user, action_mod, target_loc, curr_loc):
-		'''Action of user : 0:left = [-1, 0], 1:right = [1,0], 2:up = [0,-1], 3:down = [0, 1]
+		'''Action of user : 0:left = [0, -1], 1:right = [0,1], 2:up = [-1,0], 3:down = [1, 0]
 			Action of modulator = 1,2,3,4
 		'''
 		if action_user == 0:
-			action_user = [-1, 0]
-		elif action_user == 1:
-			action_user = [1, 0]
-		elif action_user == 2:
 			action_user = [0, -1]
-		elif action_user == 3:
+		elif action_user == 1:
 			action_user = [0, 1]
+		elif action_user == 2:
+			action_user = [-1, 0]
+		elif action_user == 3:
+			action_user = [1, 0]
 
 		action_user = np.array(action_user)
 		curr_loc = np.array(curr_loc)
