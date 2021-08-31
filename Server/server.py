@@ -61,13 +61,23 @@ def give_new_state(steps, coords, dirc):
 def test():
 	print('In test')
 	global prev_steps
-	print(id(prev_steps))
+	
 	data = request.get_json()
 	
 	if data['done']:
-		prev_steps = give_default_steps(3)
+		# prev_steps = give_default_steps(prev_steps)
 		print(id(prev_steps))
-		return {'ans' : 0}
+		prev_steps[0] = [0,0,0,0,-1,-1]
+		prev_steps[1] = [0,0,0,0,-1,-1]
+		prev_steps[2] = [0,0,0,0,-1,-1]
+		prev_steps[3] = [0,0,0,0,-1,-1]
+		prev_steps[4] = [0,0,0,0,-1,-1]
+		print(id(prev_steps))
+		print(prev_steps)
+		ans = data['arr'][-2:]
+		ans[0] = ans[0]*10
+		ans[1] = ans[1]*10
+		return {'ans' : ans}
 
 	ans = give_steps(data['arr'])
 	print('\n\n\n')
@@ -79,15 +89,19 @@ def test():
 	
 
 
-def give_default_steps(steps):
+def give_default_steps(prev_steps):
 	print('Resetting')
-	return [[0,0,0,0,-1,-1] for i in range(steps)]
-
+	prev_steps[0] = [0,0,0,0,-1,-1]
+	prev_steps[1] = [0,0,0,0,-1,-1]
+	prev_steps[2] = [0,0,0,0,-1,-1]
+	prev_steps[3] = [0,0,0,0,-1,-1]
+	prev_steps[4] = [0,0,0,0,-1,-1]
+	return prev_steps
 
 if __name__ == '__main__':
 	asst_model = tf.keras.models.load_model('asst.h5')
-	prev_steps = give_default_steps(3)
-	env_cell_mapping = give_mapping([[0.7, 0.1], [0.1, 0.1], [0.5, 0.7], [0.6, 0.2], [0.7, 0.4], [0.2, 0.9]])
+	prev_steps = give_default_steps([[], [], [], [], []])
+	env_cell_mapping = give_mapping([[0, 0], [1, 1], [0, 1], [1, 0], [0.5, 0.3], [0.5, 0.7]])
 	env_cell_mapping = env_cell_mapping[np.newaxis, :, :, np.newaxis]
 	app.run(debug = True)
 	
