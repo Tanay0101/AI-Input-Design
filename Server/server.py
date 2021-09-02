@@ -27,7 +27,7 @@ def give_steps(curr_data):
 	ob_assist = np.array(ob_assist)[np.newaxis]
 	asst_probs = asst_model([ob_assist, env_cell_mapping])
 	asst_action = np.argmax(np.squeeze(asst_probs)) + 1
-	prev_steps = np.squeeze(ob_assist).tolist()[-3:]
+	prev_steps = np.squeeze(ob_assist).tolist()[-5:]
 	return asst_action
 
 
@@ -72,6 +72,7 @@ def test():
 		prev_steps[2] = [0,0,0,0,-1,-1]
 		prev_steps[3] = [0,0,0,0,-1,-1]
 		prev_steps[4] = [0,0,0,0,-1,-1]
+
 		print(id(prev_steps))
 		print(prev_steps)
 		ans = data['arr'][-2:]

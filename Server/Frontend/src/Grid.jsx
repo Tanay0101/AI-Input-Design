@@ -103,7 +103,7 @@ export default class Grid extends Component {
   }
 
   setIcons(grid) {
-    const icons = [[0, 0], [10, 10], [0, 10], [10, 0], [5, 3], [5, 7]];
+    const icons = [[1, 1], [9, 9], [1, 9], [9, 1], [5, 3], [5, 7]];
     icons.forEach((node) => {
       grid[node[0]][node[1]].isIcon = true;
     });
