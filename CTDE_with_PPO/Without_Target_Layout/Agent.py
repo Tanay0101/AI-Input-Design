@@ -39,15 +39,15 @@ class Agent:
 
 	def save_models(self):
 		print('Saving Models')
-		save_model(self.user_actor, r'Models\user_actor.h5')
-		save_model(self.asst_actor, r'Models\asst_actor.h5')
-		save_model(self.critic, r'Models\critic.h5')
+		save_model(self.user_actor, r'Models/user_actor.h5')
+		save_model(self.asst_actor, r'Models/asst_actor.h5')
+		save_model(self.critic, r'Models/critic.h5')
 
 	def load_models(self):
 		print('Loading Models')
-		self.user_actor = load_model(r'Models\user_actor.h5')
-		self.asst_actor = load_model(r'Models\asst_actor.h5')
-		self.critic = load_model(r'Models\critic.h5')
+		self.user_actor = load_model(r'Models/user_actor.h5')
+		self.asst_actor = load_model(r'Models/asst_actor.h5')
+		self.critic = load_model(r'Models/critic.h5')
 
 	def choose_action(self, observation, layout, prev_steps_assist):
 		#observation = curr_x, curr_y, target_x, target_y
