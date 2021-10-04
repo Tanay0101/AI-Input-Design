@@ -49,14 +49,18 @@ class Agent:
 		self.asst_actor = load_model(r'Models\asst_actor.h5')
 		self.critic = load_model(r'Models\critic.h5')
 
-	def choose_action(self, observation, layout, prev_steps_assist):
+	def choose_action(self, observation, layout, prev_steps_assist, test = False):
 		#observation = curr_x, curr_y, target_x, target_y
 		curr_loc = observation[:2]
 		target_loc = observation[2:4]
 
 		user_state = tf.convert_to_tensor([observation], dtype=tf.float32)
 		user_probs = self.user_actor(user_state)
-		user_action = np.random.choice(4, p=np.squeeze(user_probs))
+		if not test:
+			user_action = np.random.choice(4, p=np.squeeze(user_probs))
+		else:
+			user_action = np.argmax(np.squeeze(user_probs))
+
 		user_prob = np.squeeze(user_probs)[user_action]
 
 		action_user_one_hot = make_one_hot(user_action, 4)
@@ -64,7 +68,10 @@ class Agent:
 		ob_assist = [action_user_one_hot + curr_loc] 
 		asst_state = tf.convert_to_tensor([prev_steps_assist + ob_assist], dtype=tf.float32)
 		asst_probs = self.asst_actor([asst_state, layout])
-		asst_action = np.random.choice(4, p=np.squeeze(asst_probs))
+		if not test:
+			asst_action = np.random.choice(4, p=np.squeeze(asst_probs))
+		else:
+			asst_action = np.argmax(np.squeeze(asst_probs))
 		asst_prob = np.squeeze(asst_probs)[asst_action]
 
 		asst_output_one_hot = tf.convert_to_tensor([make_one_hot(asst_action, 4)], dtype=tf.float32)		
